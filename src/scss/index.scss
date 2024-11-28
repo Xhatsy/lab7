@@ -1,0 +1,161 @@
+@use './normalize.css';
+@use "sass:color";
+
+
+// Основные цвета из палитры
+$color-primary: #E68617; // Основной цвет
+$color-secondary: #9A6F3D; // Вторичный цвет
+$color-accent: #7B4404; // Акцентный цвет
+$color-light: #F6B162; // Светлый цвет
+$color-background: #F6CD9C; // Цвет фона
+$color-white: #ffffff; // Белый
+
+// Шрифты и размеры
+$font-family: 'Arial', sans-serif;
+$font-size-base: 16px;
+$font-size-large: 2em;
+$font-size-medium: 1.5em;
+$font-size-small: 0.875em;
+
+// Отступы и поля
+$spacing-small: 10px;
+$spacing-medium: 20px;
+$spacing-large: 40px;
+
+// Миксины
+@mixin gradient-bg($start, $end) {
+    background: linear-gradient(90deg, $start, $end);
+}
+
+@mixin center-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@mixin button-style($bg-color, $hover-color) {
+    display: inline-block;
+    padding: $spacing-small $spacing-medium;
+    font-size: $font-size-base;
+    color: $color-white;
+    background-color: $bg-color;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    text-align: center;
+    cursor: pointer;
+
+    &:hover {
+        background-color: $hover-color;
+        text-decoration: underline;
+    }
+}
+
+// Глобальные стили
+body {
+    font-family: $font-family;
+    font-size: $font-size-base;
+    margin: 0;
+    padding: 0;
+    @include gradient-bg($color-primary, $color-background); // Градиентный фон
+    color: $color-secondary;
+    line-height: 1.6;
+}
+
+// Контейнер
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: $spacing-medium;
+    background-color: $color-light;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+
+    @media (max-width: 768px) {
+        width: 90%; /* Адаптивность для мобильных устройств */
+    }
+}
+
+// Пример заголовков
+.header {
+    &__title {
+        font-size: $font-size-large;
+        color: $color-primary;
+        margin-bottom: $spacing-small;
+    }
+
+    &__subtitle {
+        font-size: $font-size-medium;
+        color: $color-secondary;
+        margin-bottom: $spacing-medium;
+    }
+}
+
+// Меню (адаптивность)
+.menu {
+    display: flex;
+    justify-content: space-around;
+    background-color: $color-accent;
+    padding: $spacing-small 0;
+    list-style-type: none;
+
+    .menu-item {
+        margin: 0 $spacing-small;
+    }
+
+    a {
+        text-decoration: none;
+        color: $color-white;
+        font-size: $font-size-base;
+        padding: $spacing-small $spacing-medium;
+    }
+
+    @media (max-width: 768px) {
+        flex-direction: column;
+        align-items: center;
+        width: 100%; /* Элементы меню на всю ширину */
+        padding: $spacing-medium 0;
+
+        .menu-item {
+            width: 100%;
+            text-align: center;
+            padding: $spacing-small 0;
+        }
+    }
+
+    @media (max-width: 480px) {
+        a {
+            font-size: $font-size-small;
+        }
+    }
+}
+
+// Пример кнопки
+.button {
+    @include button-style($color-accent, color.adjust($color-accent, $lightness: -10%)); // Заменено на color.adjust
+}
+
+// Пример карточки
+.card {
+    border: 1px solid color.adjust($color-secondary, $lightness: 20%); // Заменено на color.adjust
+    border-radius: 8px;
+    padding: $spacing-medium;
+    background-color: $color-white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+    .card__title {
+        font-size: $font-size-medium;
+        color: $color-primary;
+        margin-bottom: $spacing-small;
+    }
+
+    .card__text {
+        font-size: $font-size-small;
+        color: $color-secondary;
+    }
+
+    .card__button {
+        margin-top: $spacing-small;
+        @include button-style($color-primary, color.adjust($color-primary, $lightness: -10%)); // Заменено на color.adjust
+    }
+}
